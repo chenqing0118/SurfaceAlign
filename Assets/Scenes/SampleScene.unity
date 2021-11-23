@@ -467,7 +467,7 @@ GameObject:
   - component: {fileID: 1305091136}
   - component: {fileID: 1305091135}
   - component: {fileID: 1305091138}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bakedMesh2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -563,7 +563,7 @@ GameObject:
   - component: {fileID: 1514921029}
   - component: {fileID: 1514921028}
   - component: {fileID: 1514921031}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: bakedMesh2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -25,9 +25,13 @@ public class OnClickMove : MonoBehaviour
             if (Physics.Raycast(ray, out hit, 100))
             {
                 curTf = hit.transform;
-                collider = hit.collider;
+                curTf.gameObject.layer = 8;
                 oriObjectScreenPos = Camera.main.WorldToScreenPoint(curTf.position);
                 oriMousePos = Input.mousePosition;
+            }
+            if (isClick)
+            {
+                curTf.gameObject.layer = 9;
             }
             isClick = !isClick;
         }
@@ -40,23 +44,19 @@ public class OnClickMove : MonoBehaviour
                 Vector3 curObjectScreenPos = oriObjectScreenPos + mouseOffset;
                 Vector3 curObjectWorldPos = Camera.main.ScreenToWorldPoint(curObjectScreenPos);
                 curTf.position = curObjectWorldPos;
-                Collider[] hitColliders = Physics.OverlapSphere(curTf.position, 2.0f);
+                Collider[] hitColliders = Physics.OverlapSphere(curTf.position, 2.0f,1<<9);
                 if (hitColliders != null)
                     foreach (var hitCollider in hitColliders)
                     {
-                        if(hitCollider!= collider)
-                        {
                             Vector3 aimUp = hitCollider.transform.up;
                             Vector3 curUp = curTf.up;
                             curTf.up = Vector3.Dot(curUp,aimUp) >= 0 ? aimUp : -aimUp;
-
                             Vector3 aimRight = hitCollider.transform.right;
                             Vector3 curRight = curTf.right;
                             Vector3 axis = Vector3.Cross(curRight, aimRight);
                             double theta = Math.Acos(Vector3.Dot(curRight.normalized, aimRight.normalized)) / Math.PI * 180;
-                            Debug.Log("before:" + curTf.right);
-                            curTf.RotateAround(curTf.position, axis, (float)theta);                           
-                        }                       
+                            Debug.Log(hitCollider);
+                            curTf.RotateAround(curTf.position, axis, (float)theta);                                                                        
                     }
             }
         }
